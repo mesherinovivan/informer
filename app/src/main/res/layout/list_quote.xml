@@ -1,0 +1,30 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Да обновите, чтобы узреть"
+        android:id="@+id/text_quote"
+        android:fontFamily="@font/annabelle"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="50dp"
+        android:paddingBottom="10dp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/autor_quote"
+        android:layout_below="@+id/text_quote"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
