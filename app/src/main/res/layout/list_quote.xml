@@ -8,14 +8,14 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Да обновите, чтобы узреть"
         android:id="@+id/text_quote"
         android:fontFamily="@font/annabelle"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingTop="50dp"
+        android:paddingTop="90dp"
         android:paddingBottom="10dp"
         android:gravity="center_horizontal"/>
 

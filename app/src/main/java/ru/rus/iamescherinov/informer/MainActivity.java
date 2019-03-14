@@ -1,16 +1,24 @@
 package ru.rus.iamescherinov.informer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,9 +37,46 @@ import static android.widget.Toast.makeText;
 
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     ListView listView;
     Typeface font;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate( R.menu.menu, menu );
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        String text_qu = "", autor_qu = "";
+        switch (id) {
+            case R.id.btnShare:
+                if (listView != null) {
+                    ListAdapter adapter = listView.getAdapter();
+                    try{
+                        text_qu = adapter.getItem(0).get("Text");
+                        autor_qu = adapter.getItem(0).get("Autor");
+                    } catch (Exception e){
+
+                        text_qu = "";
+                        autor_qu = "";
+                    }
+
+                }
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, text_qu + "Автор : "+ autor_qu);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +85,7 @@ public class MainActivity extends Activity {
         FloatingActionButton fab = findViewById(R.id.fab);
         font = Typeface.createFromAsset(getAssets(), "font/annabelle.ttf");
         listView = (ListView) findViewById(R.id.listview);
+
         TextView emptyTxt = (TextView)findViewById(R.id.empty_list_item);
         emptyTxt.setTypeface(font);
         emptyTxt.setTextColor(0xFF030303);
