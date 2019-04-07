@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Мудрые мысли</string>
-    <string name="emptyList">Нажми и узреешь мудрость</string>
+    <string name="empty_list">Нажми и узреешь мудрость</string>
+    <string name="favorite_empty_list">Элементы избранного</string>
+    <string name="text_empty_list">Да обновите, чтобы узреть</string>
     <string name="send_to">Поделиться</string>
 </resources>

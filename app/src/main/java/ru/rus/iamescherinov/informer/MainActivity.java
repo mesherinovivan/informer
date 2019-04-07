@@ -1,7 +1,9 @@
 package ru.rus.iamescherinov.informer;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +19,6 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -40,8 +41,7 @@ import static android.widget.Toast.makeText;
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     Typeface font;
-
-
+    DBHelperInformer dbHelper;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -53,34 +53,54 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String text_qu = "", autor_qu = "";
-        switch (id) {
-            case R.id.btnShare:
-                if (listView != null) {
-                    ListAdapter adapter = listView.getAdapter();
-                    try{
-                        text_qu = adapter.getItem(0).get("Text");
-                        autor_qu = adapter.getItem(0).get("Autor");
-                    } catch (Exception e){
+        HashMap dataQu;
+        if (listView != null) {
+            ListAdapter adapter = listView.getAdapter();
+            try {
+                dataQu = (HashMap) adapter.getItem(0);
+                text_qu = (String) dataQu.get("Text");
+                autor_qu = (String) dataQu.get("Autor");
+            } catch (Exception e) {
 
-                        text_qu = "";
-                        autor_qu = "";
-                    }
+                text_qu = "";
+                autor_qu = "";
+                return super.onOptionsItemSelected(item);
+            }
 
-                }
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, text_qu + "Автор : "+ autor_qu);
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
-                break;
+            switch (id) {
+                case R.id.btnShare:
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, text_qu + "Автор : " + autor_qu);
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+                    break;
+                case R.id.btnFavourites:
+                    // создаем объект для данных
+                    ContentValues cv = new ContentValues();
+                    cv.put("text_qu", text_qu);
+                    cv.put("autor_qu", autor_qu);
+                    // подключаемся к БД
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    // вставляем запись и получаем ее ID
+                    long rowID = db.insert("informer", null, cv);
+                    Toast.makeText(this,"Статья добавлена в избранное",Toast.LENGTH_LONG).show();
+                    dbHelper.close();
+                    break;
+
+
+            }
 
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // создаем объект для создания и управления версиями БД
+        dbHelper = new DBHelperInformer(this);
         setContentView(R.layout.activity_main);
         FloatingActionButton fab = findViewById(R.id.fab);
         font = Typeface.createFromAsset(getAssets(), "font/annabelle.ttf");

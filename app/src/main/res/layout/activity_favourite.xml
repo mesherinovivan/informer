@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    tools:context=".MainActivity">
+    tools:context=".FavouriteActivity">
 
 
     <ListView
-        android:id="@+id/listview"
+        android:id="@+id/favorite_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20sp" />
@@ -21,18 +21,9 @@
         android:layout_gravity="center|center"
         android:fontFamily="@font/annabelle"
         android:gravity="center"
-        android:text="@string/empty_list"
+        android:text="@string/favorite_empty_list"
         android:textSize="20sp"
         tools:textColor="@color/colorAccent" />
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="30dp"
-        android:src="@drawable/circular_refresh_arrows"
-        app:backgroundTint="@android:color/background_light" />
 
 </android.support.design.widget.CoordinatorLayout>

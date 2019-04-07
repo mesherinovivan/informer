@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/text_empty_list"
-        android:id="@+id/text_quote"
+        android:id="@+id/favorite_text_quote"
         android:fontFamily="@font/annabelle"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text=""
-        android:id="@+id/autor_quote"
+        android:id="@+id/favorite_autor_quote"
         android:layout_below="@+id/text_quote"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

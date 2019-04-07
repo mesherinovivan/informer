@@ -8,13 +8,16 @@
         android:orderInCategory="100"
         android:title="Share"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/btnFavourites"
+        android:icon="@drawable/favourites"
+        android:orderInCategory="100"
+        android:title="Favourites"
+        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menuSettings"
         android:title="Settings" />
 
-    <item
-        android:id="@+id/menuLogout"
-        android:title="Logout" />
 
 </menu>
